@@ -10,21 +10,18 @@ bool Solution::IsValid(std::string word)
 
     for (auto c = word.cbegin(); c != word.cend(); ++c)
     {
-        bool valid = false;
-        for (int i = 0; i < 62; ++i)
+        // ASCII ranges: 0-9, A-Z, a-z
+        if ((*c >= 48 && *c <= 57) || (*c >= 65 && *c <= 90) || (*c >= 97 && *c <= 122))
         {
-            if (*c == valids[i])
-            {
-                if (!hasVowel && IsVowel(*c))
-                    hasVowel = true;
-                else if (!hasConsonant && IsConsonant(*c))
-                    hasConsonant = true;
-                valid = true;
-            }
+            if (!hasVowel && IsVowel(*c))
+                hasVowel = true;
+            else if (!hasConsonant && IsConsonant(*c))
+                hasConsonant = true;
         }
-
-        if (!valid)
+        else
+        {
             return false;
+        }
     }
 
     return hasConsonant && hasVowel;
